@@ -5,9 +5,9 @@ CIFAR-10 classification with a ResNet baseline. Demonstrates autoresearch with m
 ## Setup
 
 ```bash
-pip install torch torchvision
-python prepare.py    # Download CIFAR-10 (~170MB)
-python train.py      # Single training run (~2 min)
+uv sync
+uv run prepare.py    # Download CIFAR-10 (~170MB)
+uv run train.py      # Single training run (~2 min)
 ```
 
 ## Files

@@ -3,7 +3,7 @@ CIFAR-10 training script for autoresearch.
 Agent edits this file (and model.py).
 
 Prints key: value pairs for metric extraction.
-Usage: python train.py
+Usage: uv run train.py
 """
 
 import os

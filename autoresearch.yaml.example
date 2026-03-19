@@ -31,6 +31,8 @@ metric:
 
 # [REQUIRED] Command to run one experiment.
 # Must be runnable from the repo root. Output goes to run.log.
+# For notebook-based projects, use a wrapper that runs via papermill:
+#   run: "uv run train.py"  # where train.py calls papermill and prints metrics
 run: "uv run train.py"
 
 # Training wall-clock budget in seconds. Your training script should

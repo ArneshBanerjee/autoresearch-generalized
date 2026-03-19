@@ -1,0 +1,11 @@
+[project]
+name = "notebook-classification"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyter>=1.1.1",
+    "pandas>=3.0.1",
+    "papermill>=2.7.0",
+    "scikit-learn>=1.8.0",
+]

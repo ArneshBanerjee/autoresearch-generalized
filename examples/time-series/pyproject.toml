@@ -1,0 +1,10 @@
+[project]
+name = "time-series-forecasting"
+version = "0.1.0"
+description = "ETTh1 time series forecasting for autoresearch"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.0",
+    "pandas>=2.0",
+    "numpy>=1.24",
+]

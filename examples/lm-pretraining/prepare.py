@@ -39,7 +39,7 @@ verify_macos_env()
 # ---------------------------------------------------------------------------
 
 MAX_SEQ_LEN = 2048       # context length
-TIME_BUDGET = 300        # training time budget in seconds (5 minutes)
+TIME_BUDGET = int(os.environ.get("AUTORESEARCH_TIME_BUDGET", 300))  # seconds
 EVAL_TOKENS = 40 * 524288  # number of tokens for val eval
 
 # ---------------------------------------------------------------------------

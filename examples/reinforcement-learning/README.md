@@ -5,9 +5,9 @@ CartPole-v1 with a PPO agent. Demonstrates autoresearch in a completely differen
 ## Setup
 
 ```bash
-pip install torch gymnasium numpy
-python prepare.py    # Verify gym install
-python train.py      # Single training run (~3 min)
+uv sync
+uv run prepare.py    # Verify gym install
+uv run train.py      # Single training run (~3 min)
 ```
 
 ## Files
