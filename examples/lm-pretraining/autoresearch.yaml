@@ -1,0 +1,30 @@
+project: "lm-pretraining"
+
+editable:
+  - "train.py"
+
+context:
+  - "README.md"
+  - "prepare.py"
+
+metric:
+  name: "val_bpb"
+  direction: "minimize"
+  extract: "grep '^val_bpb:' run.log | tail -1 | awk '{print $2}'"
+
+run: "uv run train.py"
+time_budget: 300
+
+prepare: "uv run prepare.py"
+prepare_check: "test -d ~/.cache/autoresearch/data"
+
+results_columns:
+  - name: "memory_gb"
+    extract: "grep '^peak_vram_mb:' run.log | awk '{printf \"%.1f\", $2/1024}'"
+
+constraints:
+  - name: "peak_vram_mb"
+    extract: "grep '^peak_vram_mb:' run.log | awk '{print $2}'"
+    soft_limit: 48000
+
+dependencies: "pyproject.toml"

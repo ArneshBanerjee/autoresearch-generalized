@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# autoresearch-init — Scaffold autoresearch config in your ML project
+#
+# Usage: Run from your repo root:
+#   curl -sL https://raw.githubusercontent.com/.../bin/autoresearch-init | bash
+#   OR
+#   path/to/autoresearch/bin/autoresearch-init
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+echo "autoresearch-init: setting up autoresearch in $(pwd)"
+echo
+
+# Check we're in a git repo
+if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    echo "ERROR: Not a git repository. Please run 'git init' first."
+    exit 1
+fi
+
+# Copy program.md
+if [ -f "program.md" ]; then
+    echo "  SKIP  program.md (already exists)"
+else
+    cp "$SCRIPT_DIR/program.md" program.md
+    echo "  CREATE  program.md"
+fi
+
+# Create autoresearch.yaml from template
+if [ -f "autoresearch.yaml" ]; then
+    echo "  SKIP  autoresearch.yaml (already exists)"
+else
+    cp "$SCRIPT_DIR/autoresearch.yaml.example" autoresearch.yaml
+    echo "  CREATE  autoresearch.yaml"
+fi
+
+# Update .gitignore
+touch .gitignore
+for entry in "run.log" "results.tsv"; do
+    if ! grep -qxF "$entry" .gitignore; then
+        echo "$entry" >> .gitignore
+        echo "  APPEND  $entry to .gitignore"
+    fi
+done
+
+echo
+echo "Setup complete! Next steps:"
+echo
+echo "  1. Edit autoresearch.yaml:"
+echo "     - Set 'editable' to the file(s) your agent should modify"
+echo "     - Set 'metric.name' to your evaluation metric"
+echo "     - Set 'metric.direction' to 'minimize' or 'maximize'"
+echo "     - Set 'metric.extract' to a shell command that extracts the metric from run.log"
+echo "     - Set 'run' to the command that trains your model"
+echo "     - Set 'context' to files the agent should read for understanding"
+echo
+echo "  2. Make sure your training script:"
+echo "     - Prints 'metric_name: value' (e.g., 'val_loss: 0.1234')"
+echo "     - Respects the time budget (reads AUTORESEARCH_TIME_BUDGET env var)"
+echo "     - Runs from the repo root"
+echo
+echo "  3. Start the agent:"
+echo "     - Point your AI agent at program.md and let it go"
+echo "     - e.g.: 'Read program.md and autoresearch.yaml, then start experimenting'"
+echo

@@ -1,0 +1,21 @@
+project: "reinforcement-learning"
+
+editable:
+  - "agent.py"
+
+context:
+  - "README.md"
+  - "train.py"
+
+metric:
+  name: "mean_reward"
+  direction: "maximize"
+  extract: "grep '^mean_reward:' run.log | tail -1 | awk '{print $2}'"
+
+run: "python train.py"
+time_budget: 180
+
+prepare: "python prepare.py"
+prepare_check: "python -c 'import gymnasium' 2>/dev/null"
+
+dependencies: "requirements.txt"

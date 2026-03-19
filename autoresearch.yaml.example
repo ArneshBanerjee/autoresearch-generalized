@@ -1,0 +1,71 @@
+# autoresearch.yaml — Configuration for autonomous ML research
+#
+# This file defines the contract between your ML project and the autoresearch
+# agent. Place it in your repo root alongside program.md.
+#
+# Required fields are marked with [REQUIRED]. Everything else has sensible defaults.
+
+# Human-readable project name
+project: "my-project"
+
+# [REQUIRED] Files the agent CAN edit.
+# These are the files the agent will modify during experiments.
+# Everything else in the repo is read-only to the agent.
+editable:
+  - "train.py"
+  # - "model.py"
+
+# Files the agent MUST read before starting experiments.
+# These provide context about the project, data, and evaluation.
+context:
+  - "README.md"
+  # - "prepare.py"
+
+# [REQUIRED] The metric to optimize.
+metric:
+  name: "val_loss"                # Name as printed by your training script
+  direction: "minimize"           # "maximize" or "minimize"
+  # Shell command to extract the metric value from run.log.
+  # Must output a single number.
+  extract: "grep '^val_loss:' run.log | tail -1 | awk '{print $2}'"
+
+# [REQUIRED] Command to run one experiment.
+# Must be runnable from the repo root. Output goes to run.log.
+run: "uv run train.py"
+
+# Training wall-clock budget in seconds. Your training script should
+# respect this (via AUTORESEARCH_TIME_BUDGET env var or hardcoded).
+# Default: 300 (5 minutes)
+time_budget: 300
+
+# Hard kill threshold in seconds. If the run exceeds this, it's killed
+# and treated as a crash. Default: 2x time_budget.
+# timeout: 600
+
+# One-time setup command (e.g., download data, train tokenizer).
+# Runs once before the experiment loop begins.
+# prepare: "uv run prepare.py"
+
+# Shell command that returns exit code 0 if prepare can be skipped.
+# If this check passes, prepare is not re-run.
+# prepare_check: "test -d data/"
+
+# Results file path. Default: results.tsv
+# results_file: "results.tsv"
+
+# Additional columns for results.tsv beyond the defaults
+# (commit, <metric_name>, status, description).
+# Each column needs a name and an extract command.
+# results_columns:
+#   - name: "memory_gb"
+#     extract: "grep '^peak_memory_mb:' run.log | awk '{printf \"%.1f\", $2/1024}'"
+
+# Secondary metrics to monitor (not optimize). Optional.
+# These are logged but don't affect keep/discard decisions.
+# constraints:
+#   - name: "peak_memory_mb"
+#     extract: "grep '^peak_memory_mb:' run.log | awk '{print $2}'"
+#     soft_limit: 16000   # Agent is warned if this is exceeded
+
+# Where dependencies are declared. Agent is told not to modify this.
+# dependencies: "pyproject.toml"
