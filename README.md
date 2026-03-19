@@ -22,12 +22,19 @@ The power comes from **constraints**: fixed time budget, single scalar metric, g
 
 ### 1. Initialize in your repo
 
+First, clone autoresearch somewhere on your machine:
+
 ```bash
-# From your ML project root (must be a git repo)
-path/to/autoresearch/bin/autoresearch-init
+git clone https://github.com/ArneshBanerjee/autoresearch-generalized.git ~/autoresearch
 ```
 
-This creates:
+Then, from your ML project's root directory (must be a git repo), run the init script:
+
+```bash
+~/autoresearch/bin/autoresearch-init
+```
+
+This copies two files into your project:
 - `autoresearch.yaml` — config file (you fill this in)
 - `program.md` — agent instructions (works out of the box)
 
@@ -89,11 +96,10 @@ See [`autoresearch.yaml.example`](autoresearch.yaml.example) for the fully annot
 
 ## Examples
 
-Four complete examples demonstrating different domains. Each example includes:
+Five complete examples demonstrating different domains. Each example includes:
 
 - **`.py` scripts** (`model.py`, `train.py`) — What autoresearch executes. Modular files that the agent edits independently.
 - **`.ipynb` notebooks** (`train_notebook.ipynb`) — Self-contained, single-file versions for interactive exploration in Jupyter. All model definitions and training logic are inlined — no imports from local `.py` modules. Useful for prototyping, understanding the pipeline, or running experiments manually. Not used by autoresearch directly.
-Five complete examples demonstrating different domains:
 
 ### [LM Pretraining](examples/lm-pretraining/)
 The original autoresearch use case. GPT pretraining on ClimbMix data, optimizing val_bpb (minimize). Single editable file, 5-minute budget.
@@ -112,7 +118,15 @@ Breast cancer classification with sklearn. Demonstrates the **notebook pattern**
 
 ## Working with Notebooks
 
-Notebooks don't work well as editable files in autoresearch (no stdout metrics, messy git diffs). The recommended pattern:
+There are two notebook patterns in this repo:
+
+### 1. Standalone notebooks (for exploration)
+
+Each example's `train_notebook.ipynb` is fully self-contained — all model definitions and training logic are inlined. Open one file and run everything, no `.py` imports needed. These are for interactive exploration, prototyping, and understanding the pipeline. autoresearch does not use them.
+
+### 2. Papermill pattern (for autoresearch integration)
+
+Notebooks don't work well as editable files in autoresearch (no stdout metrics, messy git diffs). The recommended pattern for autoresearch-driven notebook projects:
 
 1. **Extract editable logic into `.py` modules** — pipeline definitions, hyperparameters, feature selection
 2. **Keep the notebook as read-only context** — it imports from the `.py` modules, trains, and writes `metrics.json`
