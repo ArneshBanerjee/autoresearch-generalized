@@ -88,6 +88,10 @@ See [`autoresearch.yaml.example`](autoresearch.yaml.example) for the fully annot
 
 ## Examples
 
+Four complete examples demonstrating different domains. Each example includes:
+
+- **`.py` scripts** (`model.py`, `train.py`) — What autoresearch executes. Modular files that the agent edits independently.
+- **`.ipynb` notebooks** (`train_notebook.ipynb`) — Self-contained, single-file versions for interactive exploration in Jupyter. All model definitions and training logic are inlined — no imports from local `.py` modules. Useful for prototyping, understanding the pipeline, or running experiments manually. Not used by autoresearch directly.
 Five complete examples demonstrating different domains:
 
 ### [LM Pretraining](examples/lm-pretraining/)
