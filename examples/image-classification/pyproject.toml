@@ -1,0 +1,9 @@
+[project]
+name = "image-classification"
+version = "0.1.0"
+description = "CIFAR-10 classification with ResNet for autoresearch"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.0",
+    "torchvision>=0.15",
+]

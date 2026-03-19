@@ -5,9 +5,9 @@ ETTh1 (Electricity Transformer Temperature) forecasting with an MLP baseline. De
 ## Setup
 
 ```bash
-pip install torch pandas numpy
-python prepare.py    # Download ETTh1 + create windowed splits
-python train.py      # Single training run (~2 min)
+uv sync
+uv run prepare.py    # Download ETTh1 + create windowed splits
+uv run train.py      # Single training run (~2 min)
 ```
 
 ## Files
