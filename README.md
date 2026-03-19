@@ -43,7 +43,7 @@ metric:
   direction: "minimize" # "minimize" or "maximize"
   extract: "grep '^val_loss:' run.log | tail -1 | awk '{print $2}'"
 
-run: "python train.py"  # Command to run one experiment
+run: "uv run train.py"  # Command to run one experiment
 ```
 
 ### 3. Make your training script compatible
@@ -88,7 +88,7 @@ See [`autoresearch.yaml.example`](autoresearch.yaml.example) for the fully annot
 
 ## Examples
 
-Four complete examples demonstrating different domains:
+Five complete examples demonstrating different domains:
 
 ### [LM Pretraining](examples/lm-pretraining/)
 The original autoresearch use case. GPT pretraining on ClimbMix data, optimizing val_bpb (minimize). Single editable file, 5-minute budget.
@@ -101,6 +101,19 @@ CartPole-v1 with PPO. Optimizes mean_reward (maximize). Agent only edits the pol
 
 ### [Time Series Forecasting](examples/time-series/)
 ETTh1 electricity transformer temperature forecasting with MLP. Optimizes val_mse (minimize). Multi-file editing, 2-minute budget.
+
+### [Notebook Classification](examples/notebook-classification/)
+Breast cancer classification with sklearn. Demonstrates the **notebook pattern** — a Jupyter notebook is read-only context that orchestrates training, while the agent edits the `.py` modules it imports. Uses papermill to execute the notebook and extract metrics.
+
+## Working with Notebooks
+
+Notebooks don't work well as editable files in autoresearch (no stdout metrics, messy git diffs). The recommended pattern:
+
+1. **Extract editable logic into `.py` modules** — pipeline definitions, hyperparameters, feature selection
+2. **Keep the notebook as read-only context** — it imports from the `.py` modules, trains, and writes `metrics.json`
+3. **Add a `train.py` wrapper** — runs the notebook via [papermill](https://papermill.readthedocs.io/), reads `metrics.json`, prints metrics to stdout
+
+See [`examples/notebook-classification/`](examples/notebook-classification/) for a complete working example.
 
 ## Design philosophy
 

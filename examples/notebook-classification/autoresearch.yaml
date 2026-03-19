@@ -1,0 +1,23 @@
+project: "notebook-classification"
+
+editable:
+  - "model.py"
+  - "train.py"
+
+context:
+  - "README.md"
+  - "train_notebook.ipynb"
+  - "prepare.py"
+
+metric:
+  name: "val_accuracy"
+  direction: "maximize"
+  extract: "grep '^val_accuracy:' run.log | tail -1 | awk '{print $2}'"
+
+run: "uv run train.py"
+time_budget: 120
+
+prepare: "uv run prepare.py"
+prepare_check: "test -f data/breast_cancer.csv"
+
+dependencies: "pyproject.toml"
