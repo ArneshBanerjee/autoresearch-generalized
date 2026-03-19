@@ -21,12 +21,19 @@ The power comes from **constraints**: fixed time budget, single scalar metric, g
 
 ### 1. Initialize in your repo
 
+First, clone autoresearch somewhere on your machine:
+
 ```bash
-# From your ML project root (must be a git repo)
-path/to/autoresearch/bin/autoresearch-init
+git clone https://github.com/ArneshBanerjee/autoresearch-generalized.git ~/autoresearch
 ```
 
-This creates:
+Then, from your ML project's root directory (must be a git repo), run the init script:
+
+```bash
+~/autoresearch/bin/autoresearch-init
+```
+
+This copies two files into your project:
 - `autoresearch.yaml` — config file (you fill this in)
 - `program.md` — agent instructions (works out of the box)
 
