@@ -3,6 +3,7 @@
 A framework for autonomous ML research. Give an AI agent a training setup and let it experiment overnight — it modifies code, trains, measures, keeps or discards, and repeats. You wake up to a log of experiments and (hopefully) a better model.
 
 Inspired by [Andrej Karpathy's autoresearch](https://github.com/karpathy/autoresearch). This repo extracts the domain-agnostic core into a configurable framework that works with **any** ML project — LLMs, image classification, RL, time series, or anything else.
+It's also optimized to run on Nvidia GPU, or Apple M series chips or a normal CPU.
 
 ## How it works
 
