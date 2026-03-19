@@ -27,7 +27,7 @@ The environment variable `AUTORESEARCH_TIME_BUDGET` is set to the configured `ti
 - Modify files listed in `editable` in the config. Everything within those files is fair game: model architecture, optimizer, hyperparameters, training loop, batch size, model size, etc.
 
 **What you CANNOT do:**
-- Modify any file NOT listed in `editable`. Context files are read-only. They contain fixed evaluation, data loading, and constants.
+- Modify any file NOT listed in `editable`. Context files are read-only. They contain fixed evaluation, data loading, and constants. (Note: Jupyter notebooks listed in `context` are read-only — edit the `.py` modules they import instead.)
 - Install new packages or add dependencies. You can only use what's already declared in the project's dependency file (if `dependencies` is set in the config).
 - Modify the evaluation harness or metric computation.
 

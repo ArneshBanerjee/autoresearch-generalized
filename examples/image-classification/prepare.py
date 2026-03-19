@@ -2,7 +2,7 @@
 One-time data preparation for CIFAR-10 image classification.
 Downloads the dataset and creates train/val splits.
 
-Usage: python prepare.py
+Usage: uv run prepare.py
 """
 
 import os

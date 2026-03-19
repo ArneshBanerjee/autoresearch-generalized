@@ -2,7 +2,7 @@
 One-time setup for reinforcement learning example.
 Verifies that gymnasium is installed and CartPole-v1 works.
 
-Usage: python prepare.py
+Usage: uv run prepare.py
 """
 
 import gymnasium as gym

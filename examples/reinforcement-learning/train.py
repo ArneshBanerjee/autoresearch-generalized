@@ -3,7 +3,7 @@ CartPole-v1 training and evaluation harness for autoresearch.
 This file is READ-ONLY — the agent edits agent.py only.
 
 Prints key: value pairs for metric extraction.
-Usage: python train.py
+Usage: uv run train.py
 """
 
 import os

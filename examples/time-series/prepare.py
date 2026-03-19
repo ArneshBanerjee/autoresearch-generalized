@@ -2,7 +2,7 @@
 One-time data preparation for ETTh1 time series forecasting.
 Downloads the dataset and creates windowed train/val/test splits.
 
-Usage: python prepare.py
+Usage: uv run prepare.py
 """
 
 import os

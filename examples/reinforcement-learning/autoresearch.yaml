@@ -12,10 +12,10 @@ metric:
   direction: "maximize"
   extract: "grep '^mean_reward:' run.log | tail -1 | awk '{print $2}'"
 
-run: "python train.py"
+run: "uv run train.py"
 time_budget: 180
 
-prepare: "python prepare.py"
-prepare_check: "python -c 'import gymnasium' 2>/dev/null"
+prepare: "uv run prepare.py"
+prepare_check: "uv run python -c 'import gymnasium' 2>/dev/null"
 
-dependencies: "requirements.txt"
+dependencies: "pyproject.toml"
