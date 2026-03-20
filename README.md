@@ -1,4 +1,4 @@
-# autoresearch
+# autoresearch generalized
 
 A framework for autonomous ML research. Give an AI agent a training setup and let it experiment overnight — it modifies code, trains, measures, keeps or discards, and repeats. You wake up to a log of experiments and (hopefully) a better model.
 
